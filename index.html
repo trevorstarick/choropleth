@@ -1,46 +1,45 @@
 <html>
-	<head>
-		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
-		<style>
-		#map {
-			height: 97vh;
-		}
-		</style>
-	</head>
-	<body>
-	<div id="map"></div>
-	<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-	<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
-		<script>
-		var map = L.map('map').setView([37.8, -96], 4);
-		
-		L.tileLayer('http://mt0.google.com/vt/x={x}&y={y}&z={z}', {
-			attribution: 'Map data & Imagery © <a href="http://maps.google.com">Google</a>',maxZoom: 18
-		}).addTo(map);
+  <head>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+    <style>
+    .map {
+      height: 97vh;
+    }
+    </style>
+  </head>
+  <body>
+    <div id="map" class="map"></div>
+    <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script src="./geojson.js"></script>
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+    <script>
+      var map = L.map('map').setView([37.8, -96], 5);
+      
+      L.tileLayer('http://c.tile.stamen.com/toner-lite/{z}/{x}/{y}.png').addTo(map);
 
-		function getColor(d) {
-			return d > 1000 ? '#800026' :
-				d > 500  ? '#BD0026' :
-				d > 200  ? '#E31A1C' :
-				d > 100  ? '#FC4E2A' :
-				d > 50   ? '#FD8D3C' :
-				d > 20   ? '#FEB24C' :
-				d > 10   ? '#FED976' :
-					'#FFEDA0';
-		}
+      function getColor(d) {
+        return d > 2000 ? '#f00' :
+          d > 1000 ? '#08519c' :
+          d > 500 ? '#2171b5' :
+          d > 200 ? '#4292c6' :
+          d > 100 ? '#6baed6' :
+          d > 50  ? '#9ecae1' :
+          d > 20  ? '#c6dbef' :
+          d > 1 ? '#deebf7':
+          'rgba(255,255,255,.5)';
+      }
 
-		function style(feature) {
-			return {
-				fillColor: getColor(feature.properties.density),
-				weight: 2,
-				opacity: 1,
-				color: 'white',
-				dashArray: '3',
-				fillOpacity: 0.7
-			};
-		}
-		var json = $.getJSON('./jsonfile.json');
-		L.geoJson(json, {style: style}).addTo(map);
-		</script>
-	</body>
+      function style(feature) {
+        return {
+          fillColor: getColor(feature.properties.density),
+          weight: 1,
+          opacity: 1,
+          color: 'white',
+          dashArray: '3',
+          fillOpacity: 0.9
+        };
+      }
+      L.geoJson(geojson, {style: style}).addTo(map);
+    </script>
+  </body>
 </html>
