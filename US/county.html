@@ -1,20 +1,12 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <style>
 
 svg {
   background-color: #fff;
-}
-
-.counties {
-  fill: #
-  ;
-}
-
-.states {
-  fill: none;
-  stroke: #fff;
-  stroke-linejoin: round;
+  width: 960px;
+  height: 500px;
+  margin: 20px 0;
 }
 
 </style>
@@ -54,11 +46,5 @@ function ready(error, us, unemployment) {
     .enter().append("path")
       .attr("d", path)
       .style("fill", function(d) { return color(rateById[d.properties.GEO_ID]); });
-
-  svg.append("path")
-      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a.id !== b.id; }))
-      .attr("class", "states")
-      .attr("d", path);
 }
-
 </script>

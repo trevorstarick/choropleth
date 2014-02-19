@@ -7,7 +7,7 @@ svg {
 }
 
 .counties {
-  fill: #
+  fill: none;
   ;
 }
 
@@ -39,7 +39,7 @@ var svg = d3.select("body").append("svg")
 
 queue()
     .defer(d3.json, "US-STATES.topojson")
-    .defer(d3.tsv, "US-STATE.tsv")
+    .defer(d3.tsv, "1380585600.tsv")
     .await(ready);
 
 function ready(error, us, unemployment) {
@@ -54,7 +54,7 @@ function ready(error, us, unemployment) {
     .enter().append("path")
       .attr("d", path)
       .style("fill", function(d) { return color(rateById[d.properties.STATE]); });
-
+      
   svg.append("path")
       .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a.id !== b.id; }))
       .attr("class", "states")
